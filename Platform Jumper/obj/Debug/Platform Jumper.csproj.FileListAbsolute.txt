@@ -1,0 +1,9 @@
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\bin\Debug\Platform Jumper.exe.config
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\bin\Debug\Platform Jumper.exe
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\bin\Debug\Platform Jumper.pdb
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform Jumper.csprojResolveAssemblyReference.cache
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform_Jumper.Form1.resources
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform_Jumper.Properties.Resources.resources
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform Jumper.csproj.GenerateResource.Cache
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform Jumper.exe
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Debug\Platform Jumper.pdb
