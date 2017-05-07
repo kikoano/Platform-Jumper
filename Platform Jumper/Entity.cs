@@ -18,5 +18,19 @@ namespace Platform_Jumper
             X = x;
             Y = y;
         }
+        protected bool collisionWith(LevelState ls,Entity e)
+        {
+            if(e is Goblin)
+            {
+                if((Y + 8) > e.Y && (Y - 8) < e.Y && (X + 12) > e.X && (X - 12) < e.X)
+                    return true;
+                return false;
+            }
+            else if ((Y + 8) > e.Y && (Y - 8) < e.Y && (X + 12) > e.X && (X - 12) < e.X)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

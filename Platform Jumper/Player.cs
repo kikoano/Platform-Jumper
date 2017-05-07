@@ -10,24 +10,55 @@ namespace Platform_Jumper
 {
     public class Player : Mob
     {
-        public int Score { get; private set; } = 0;
         public Player(int x, int y) : base(x, y)
         {
-            sprite = Sprite.Player;
+            sprite = Sprite.PlayerRight;
         }
         public override void Update(LevelState ls)
         {
             base.Update(ls);
             if (movement[0] && !checkCollisionLeft(ls))
+            {
+                sprite = Sprite.PlayerLeft;
                 X -= speed;
+            }
             if (movement[1])
                 Y -= speed;
             if (movement[2] && !checkCollisionRight(ls))
+            {
+                sprite = Sprite.PlayerRight;
                 X += speed;
+            }
             if (movement[3])
                 Y += speed;
             collision(ls);
-            enemyCollision(ls);
+        }
+        private void collision(LevelState ls)
+        {
+            foreach(Entity e in ls.ScreenEntities)
+            {
+                if (collisionWith(ls, e))
+                {
+                    if(e is Coin){
+                        ls.PlayerData.Score += 10;
+                        e.Removed = true;
+                    }
+                    else if(e is Goblin)
+                    {
+                        if (falling)
+                        {
+                            e.Removed = true;
+                            force = gravity;
+                            jump = true;
+
+                        }
+                        //else
+                           // ls.gsm.PopState();
+                    }
+                    else if(e is Firehead)
+                        ls.gsm.PopState();
+                }
+            }
         }
         public void KeyDown(object sender, KeyEventArgs e)
         {
@@ -55,36 +86,6 @@ namespace Platform_Jumper
                     jump = true;
                 }
             }
-        }
-        private void collision(LevelState ls)
-        {
-            // scan in area -160 to 160
-            for (int x = (int)X - 160; x < (int)X + 160; x++)
-            {
-                Entity e;
-                if (ls.Entities.TryGetValue(x + (int)Y * ls.Width, out e))
-                {
-                    if ((X+8) + Y * ls.Width > e.X + e.Y * ls.Width && (X - 8) + Y * ls.Width < e.X + e.Y * ls.Width)
-                    {
-                        if (e is Coin)
-                        {
-                            ls.Entities.Remove(x + (int)Y * ls.Width);
-
-                            Score++;
-                        }
-                        else if (e is Goblin)
-                        {
-                            if (falling)
-                                ls.Entities.Remove(x + (int)Y * ls.Width);
-                            else ls.gsm.PopState();
-                        }
-                    }
-                }
-            }
-        }
-        private void enemyCollision(LevelState ls)
-        {
-
         }
         public void KeyUp(object sender, KeyEventArgs e)
         {

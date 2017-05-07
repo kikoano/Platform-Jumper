@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Platform_Jumper
 {
@@ -15,28 +11,60 @@ namespace Platform_Jumper
         public int Width { get; private set; }
         public int Height { get; private set; }
         public int[] Tiles { get; private set; }
-        private Sprite background=Sprite.Backgound1;
+        private Sprite background = Sprite.Backgound1;
         private string path;
         public Player Player { get; private set; }
         public Dictionary<int, Entity> Entities { get; set; } = new Dictionary<int, Entity>();
+        public List<Entity> ScreenEntities { get; set; } = new List<Entity>();
+        public PlayerData PlayerData { get; set; } = new PlayerData();
         private Hud hud;
-        public LevelState(GameStateManager gsm,string path) : base(gsm)
+        private int playerOldX=0;
+        private int playerOldY=0;
+        public LevelState(GameStateManager gsm, string path) : base(gsm)
         {
             this.path = path;
+
         }
         public override void Init()
         {
             base.Init();
             gsm.Ingame = true;
             Tiles = LoadMapToTiles(path);
-            hud = new Hud(controls,this);
+            hud = new Hud(controls, this);
+        }
+        private void checkIfPlayerDead()
+        {
+
+        }
+        private void findScreenEntities()
+        {
+            int diff = Form1.HEIGHT;
+            if (Player.X > playerOldX + diff || Player.X < playerOldX - diff || Player.Y > playerOldY + diff || Player.Y < playerOldY - diff)
+            {
+                Console.WriteLine("update");
+                playerOldX = (int)Player.X;
+                playerOldY = (int)Player.Y;
+                ScreenEntities = new List<Entity>();
+                for (int y = gsm.screen.YOffset- Form1.HEIGHT; y < gsm.screen.YOffset + Form1.HEIGHT+ Form1.HEIGHT; y += 3)
+                {
+                    for (int x = gsm.screen.XOffset - 16- Form1.WIDTH; x < gsm.screen.XOffset + Form1.WIDTH+ Form1.WIDTH; x += 4)
+                    {
+                        Entity e;
+                        if (Entities.TryGetValue((x) + (y * Width), out e))
+                        {
+                            ScreenEntities.Add(e);
+                        }
+                    }
+                }
+            }
         }
 
         public override void Render()
         {
-            gsm.screen.RenderSprite(0, 0, background,true);
+            gsm.screen.RenderSprite(0, 0, background, true);
             renderTiles();
-            foreach(Entity e in Entities.Values.ToList())
+            Player.Render(gsm.screen);
+            foreach (Entity e in ScreenEntities)
             {
                 e.Render(gsm.screen);
             }
@@ -44,17 +72,25 @@ namespace Platform_Jumper
         }
         public override void Update()
         {
+            findScreenEntities();
             updateOffsets();
-            foreach (Entity e in Entities.Values.ToList())
+            //updates ONLY WHAT IS ON SCREEN!
+            Player.Update(this);
+           for(int i=0;i< ScreenEntities.Count;i++)
             {
-                e.Update(this);
+                ScreenEntities[i].Update(this);
+                if (ScreenEntities[i].Removed)
+                {
+                    Entities.Remove((int)(ScreenEntities[i].X + ScreenEntities[i].Y * Width));
+                    ScreenEntities.RemoveAt(i);
+                }
             }
             hud.Update();
         }
         private void updateOffsets()
         {
             gsm.screen.XOffset = (int)Player.X - Form1.WIDTH / 2;
-            gsm.screen.YOffset = (int)(Player.Y- Form1.HEIGHT/1.5);
+            gsm.screen.YOffset = (int)(Player.Y - Form1.HEIGHT / 1.5);
         }
         private void renderTiles()
         {
@@ -63,7 +99,7 @@ namespace Platform_Jumper
                 for (int x = 0; x < Width; x++)
                 {
                     if (Tiles[x + y * Width] == 2)
-                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1,false);
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1, false);
                     else if (Tiles[x + y * Width] == 3)
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1Back, false);
                 }
@@ -85,7 +121,7 @@ namespace Platform_Jumper
 
                 byte* PtrFirstPixel = (byte*)mapData.Scan0;
 
-                for(int y=0;y< heightInPixels;y++)
+                for (int y = 0; y < heightInPixels; y++)
                 //Parallel.For(0, heightInPixels, y =>
                 {
                     byte* currentLine = PtrFirstPixel + (y * mapData.Stride);
@@ -96,7 +132,7 @@ namespace Platform_Jumper
                         colors.Green = currentLine[x + 1];
                         colors.Red = currentLine[x + 2];
                         colors.Alpha = currentLine[x + 3];
-                        int position = (int)((x*4) + (y *16 * Width));
+                        int position = (int)((x * 4) + (y * 16 * Width));
                         if (colors.isGreen())
                         {
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
@@ -108,7 +144,7 @@ namespace Platform_Jumper
                         else if (colors.isPlayer())
                         {
                             Player = new Player(x * 4, y * 16);
-                            Entities.Add(position, Player);
+
                             //add Keyboard handles
                             gsm.Form.KeyDown += Player.KeyDown;
                             gsm.Form.KeyUp += Player.KeyUp;
@@ -131,6 +167,10 @@ namespace Platform_Jumper
                         {
                             Entities.Add(position, new Goblin(x * 4, y * 16));
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 3;
+                        }
+                        else if (colors.isFirehead())
+                        {
+                            Entities.Add(position, new Firehead(x * 4, y * 16));
                         }
                         else
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 0;

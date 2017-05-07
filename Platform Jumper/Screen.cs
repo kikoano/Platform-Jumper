@@ -83,6 +83,28 @@ namespace Platform_Jumper
 
             }
         }
+        public void RenderPixel(int xp, int yp, bool isfixed)
+        {
+            //Parallel to be used in future
+            if (!isfixed)
+            {
+                xp -= XOffset;
+                yp -= YOffset;
+            }
+            if (xp < 0 || xp >= width * 4 || yp < 0 || yp >= height)
+                return;
+            //is pink to be added
+            Colors colors = new Colors();
+            colors.Blue = 0;
+            colors.Green = 0;
+            colors.Red = 255;
+            colors.Alpha = 255;
+            Pixels[(xp) + yp * width * 4] = colors.Blue;
+            Pixels[(xp + 1) + yp * width * 4] = colors.Green;
+            Pixels[(xp + 2) + yp * width * 4] = colors.Red;
+            Pixels[(xp + 3) + yp * width * 4] = colors.Alpha;
+
+        }
 
         public void RenderSprite(int xp, int yp, Sprite sprite, bool isfixed)
         {
@@ -265,6 +287,14 @@ namespace Platform_Jumper
             public bool isGoblinBack()
             {
                 if (Red == 0 && Green == 255 && Blue == 100)
+                {
+                    return true;
+                }
+                return false;
+            }
+            public bool isFirehead()
+            {
+                if (Red == 255 && Green == 100 && Blue == 0)
                 {
                     return true;
                 }

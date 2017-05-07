@@ -12,6 +12,11 @@ namespace Platform_Jumper
         {
             sprite = Sprite.Coin;
         }
+        public override void Update(LevelState ls)
+        {
+            base.Update(ls);
+
+        }
         public override void Render(Screen screen)
         {
             base.Render(screen);

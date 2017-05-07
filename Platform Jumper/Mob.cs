@@ -110,11 +110,11 @@ namespace Platform_Jumper
         public override void Render(Screen screen)
         {
             screen.RenderSprite((int)X, (int)Y, sprite, false);
-            //turn on if you want to see collision lines
-            /*screen.RenderX((int)X, (int)Y - 1, 16 * 4, false);
+           // turn on if you want to see collision lines
+            screen.RenderX((int)X, (int)Y - 1, 16 * 4, false);
             screen.RenderX((int)X, (int)Y + 16, 16 * 4, false);
             screen.RenderY((int)X - 1, (int)Y, 16, false);
-            screen.RenderY((int)X + 16, (int)Y, 16, false);*/
+            screen.RenderY((int)X + 16, (int)Y, 16, false);
         }
     }
 }

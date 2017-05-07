@@ -37,6 +37,14 @@ namespace Platform_Jumper
             states.Push(gs);
             states.Peek().Init();
         }
+        public void SwitchState(GameState gs)
+        {
+            if (states.Count > 0)
+                states.Peek().Cleanup();
+            PopState();
+            states.Push(gs);
+            states.Peek().Init();
+        }
         public void PopState()
         {
             if (states.Count > 0)

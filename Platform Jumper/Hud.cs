@@ -30,7 +30,7 @@ namespace Platform_Jumper
         }
         public void Update()
         {
-            score.Text = ls.Player.Score.ToString();
+            score.Text = ls.PlayerData.Score.ToString();
         }
 
     }

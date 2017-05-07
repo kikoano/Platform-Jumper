@@ -10,36 +10,21 @@ namespace Platform_Jumper
     {
         private int moveDir;
         private static Random rnd = new Random();
-        private float movePosition = 0;
 
         public Goblin(int x, int y) : base(x, y)
         {
 
             sprite = Sprite.GoblinLeft;
-            speed = 1.6f;
+            speed = 0.6f;
             moveDir = rnd.Next(0, 2);
         }
         public override void Update(LevelState ls)
         {
-            base.Update(ls);
             horizontalMove(ls);
-            maxMovePosition(ls);
             if (moveDir == 0)
                 sprite = Sprite.GoblinRight;
             else
                 sprite = Sprite.GoblinLeft;
-        }
-        private void maxMovePosition(LevelState ls)
-        {
-            movePosition++;
-            if (movePosition > 9*(int)speed*10)
-            {
-                if (moveDir == 0)
-                    moveDir = 1;
-                else
-                    moveDir = 0;
-                movePosition = -movePosition;
-            }
         }
         private void horizontalMove(LevelState ls)
         {
