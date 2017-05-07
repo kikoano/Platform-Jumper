@@ -20,5 +20,20 @@ namespace Platform_Jumper
             BackColor = System.Drawing.Color.Transparent;
             Font = new Font("Crimson Text", 24);
         }
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+            Sound.Click.Play();
+        }
+        protected override void OnMouseHover(EventArgs e)
+        {
+            base.OnMouseHover(e);
+            Sound.Select.Play();
+        }
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            Sound.Select.Play();
+        }
     }
 }

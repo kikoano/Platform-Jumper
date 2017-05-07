@@ -15,22 +15,23 @@ namespace Platform_Jumper
         public int Width { get; private set; }
         public int Height { get; private set; }
         //loaded Bitmaps 
-        public static Sprite Background = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\background.gif"));
-        public static Sprite Wall1 = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\wall1.png"));
-        public static Sprite Wall1Back = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\wall1Back.png"));
-        public static Sprite PlayerRight = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\playerRight.png"));
-        public static Sprite PlayerLeft = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\playerLeft.png"));
-        public static Sprite Backgound1 = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\bg1.png"));
-        public static Sprite Coin= new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\Coin.png"));
-        public static Sprite Score = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\score.png"));
-        public static Sprite GoblinLeft = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\goblinLeft.png"));
-        public static Sprite GoblinRight = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\goblinRight.png"));
-        public static Sprite Firehead = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\firehead.png"));
-        public static Sprite Hearth = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\hearth.png"));
+        public static Sprite Background = new Sprite(@"\Textures\background.gif");
+        public static Sprite Wall1 = new Sprite(@"\Textures\wall1.png");
+        public static Sprite Wall1Back = new Sprite(@"\Textures\wall1Back.png");
+        public static Sprite PlayerRight = new Sprite(@"\Textures\playerRight.png");
+        public static Sprite PlayerLeft = new Sprite(@"\Textures\playerLeft.png");
+        public static Sprite Backgound1 = new Sprite(@"\Textures\bg1.png");
+        public static Sprite Coin= new Sprite(@"\Textures\Coin.png");
+        public static Sprite Score = new Sprite(@"\Textures\score.png");
+        public static Sprite GoblinLeft = new Sprite(@"\Textures\goblinLeft.png");
+        public static Sprite GoblinRight = new Sprite(@"\Textures\goblinRight.png");
+        public static Sprite Firehead = new Sprite(@"\Textures\firehead.png");
+        public static Sprite Hearth = new Sprite( @"\Textures\hearth.png");
 
        
-        public Sprite(Bitmap bitmap)
+        public Sprite(string path)
         {
+            Bitmap bitmap= new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+path);
             unsafe
             {
                 BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);

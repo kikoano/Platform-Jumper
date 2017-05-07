@@ -8,7 +8,12 @@ namespace Platform_Jumper
 {
     public static class PlayerData
     {
-        public static int Score  = 0;
-        public static int Lifes  = 3;
+        public static int Score = 0;
+        public static int Lifes = 3;
+
+        public static void ResetScore()
+        {
+            Score = 0;
+        }
     }
 }

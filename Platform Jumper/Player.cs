@@ -60,6 +60,7 @@ namespace Platform_Jumper
                     if (e is Coin)
                     {
                         PlayerData.Score += 10;
+                        Sound.Collect.Play();
                         e.Removed = true;
                     }
                     else if (e is Goblin)
@@ -69,17 +70,20 @@ namespace Platform_Jumper
                             e.Removed = true;
                             force = gravity;
                             jump = true;
+                            Sound.Hit.Play();
 
                         }
                         else
                         {
                             PlayerData.Lifes--;
+                            Sound.Death.Play();
                             ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
                         }
                     }
                     else if (e is Firehead)
                     {
                         PlayerData.Lifes--;
+                        Sound.Death.Play();
                         ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
                     }
                 }
@@ -109,6 +113,7 @@ namespace Platform_Jumper
                 {
                     force = gravity;
                     jump = true;
+                    Sound.Jump.Play();
                 }
             }
         }
