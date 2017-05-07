@@ -27,8 +27,11 @@ namespace Platform_Jumper
         public static Sprite GoblinRight = new Sprite(@"\Textures\goblinRight.png");
         public static Sprite Firehead = new Sprite(@"\Textures\firehead.png");
         public static Sprite Hearth = new Sprite( @"\Textures\hearth.png");
+        public static Sprite Door = new Sprite(@"\Textures\door.png");
+        public static Sprite Clock = new Sprite(@"\Textures\clock.png");
+        public static Sprite BgScore = new Sprite(@"\Textures\bgScore.png");
 
-       
+
         public Sprite(string path)
         {
             Bitmap bitmap= new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+path);

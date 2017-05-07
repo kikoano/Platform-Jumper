@@ -300,6 +300,14 @@ namespace Platform_Jumper
                 }
                 return false;
             }
+            public bool isDoor()
+            {
+                if (Red == 120 && Green == 0 && Blue == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
 
         }
     }

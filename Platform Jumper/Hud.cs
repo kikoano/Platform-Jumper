@@ -27,7 +27,8 @@ namespace Platform_Jumper
 
             score.Location = new System.Drawing.Point(60, 7);
             life.Location = new System.Drawing.Point(270, 7);
-            time.Location = new System.Drawing.Point(420, 7);
+            life.Width = 100;
+            time.Location = new System.Drawing.Point(370, 7);
 
             controls.Add(score);
             controls.Add(life);
@@ -45,14 +46,16 @@ namespace Platform_Jumper
         {
             screen.RenderSprite(0, 0, Sprite.Score,true);
             screen.RenderSprite(70, 3, Sprite.Hearth, true);
+            screen.RenderSprite(105, 2, Sprite.Clock, true);
         }
         private void tick(object sender, EventArgs e)
         {
             t++;
+            PlayerData.Time = t;
         }
         public void Update()
         {
-            score.Text = PlayerData.Score.ToString();
+            score.Text = PlayerData.CurrentScore.ToString();
             life.Text = PlayerData.Lifes.ToString();
             time.Text = t.ToString();
         }

@@ -34,6 +34,7 @@ namespace Platform_Jumper
                 Y += speed;
             collision(ls);
             fallInPit(ls);
+            collisionTiles(ls);
             forceBackToMap(ls);
         }
         private void forceBackToMap(LevelState ls)
@@ -45,10 +46,18 @@ namespace Platform_Jumper
         }
         private void fallInPit(LevelState ls)
         {
-            if(Y > (ls.Height * 15))
+            if(Y > (ls.Height - 2) * 16)
             {
                 PlayerData.Lifes--;
+                Sound.Death.Play();
                 ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
+            }
+        }
+        private void collisionTiles(LevelState ls)
+        {
+            if (ls.Tiles[(int)(X/16) +(int) (Y/16) * ls.Width] == 4)
+            {
+                ls.gsm.SwitchState(new LevelCompleteState(ls.gsm));
             }
         }
         private void collision(LevelState ls)
@@ -59,7 +68,7 @@ namespace Platform_Jumper
                 {
                     if (e is Coin)
                     {
-                        PlayerData.Score += 10;
+                        PlayerData.CurrentScore += 10;
                         Sound.Collect.Play();
                         e.Removed = true;
                     }

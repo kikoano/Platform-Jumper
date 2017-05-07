@@ -25,9 +25,9 @@ namespace Platform_Jumper
             base.OnClick(e);
             Sound.Click.Play();
         }
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
-            base.OnMouseHover(e);
+            base.OnMouseEnter(e);
             Sound.Select.Play();
         }
         protected override void OnGotFocus(EventArgs e)

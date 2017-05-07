@@ -29,6 +29,7 @@ namespace Platform_Jumper
             base.Init();
             forceFSE();
             gsm.Ingame = true;
+            PlayerData.ResetCurrentScoreTime();
             Tiles = LoadMapToTiles(Path);
             hud = new Hud(controls, this);
         }
@@ -40,7 +41,9 @@ namespace Platform_Jumper
         private void checkIfPlayerDead()
         {
             if (PlayerData.Lifes <= 0)
-                gsm.PopState();
+            {
+                gsm.SwitchState(new LevelCompleteState(gsm));
+            }
 
         }
         private void findScreenEntities()
@@ -120,6 +123,8 @@ namespace Platform_Jumper
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1, false);
                     else if (Tiles[x + y * Width] == 3)
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1Back, false);
+                    else if (Tiles[x + y * Width] == 4)
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Door, false);
                 }
             }
         }
@@ -189,6 +194,10 @@ namespace Platform_Jumper
                         else if (colors.isFirehead())
                         {
                             Entities.Add(position, new Firehead(x * 4, y * 16));
+                        }
+                        else if (colors.isDoor())
+                        {
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 4;
                         }
                         else
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 0;

@@ -24,11 +24,14 @@ namespace Platform_Jumper
         }
         private void playClick(object sender, System.EventArgs e)
         {
-            gsm.PushState(new LevelState(gsm, "level1.png"));
+            gsm.PushState(new LevelState(gsm, "level"+PlayerData.CurrentLevel+".png"));
         }
         public override void Init()
         {
             base.Init();
+
+            gsm.Ingame = false;
+
             int witdhCenterForm = (gsm.Form.Width / 2) - ButtonMenu.w / 2;
             int heightCenterForm = (gsm.Form.Height / 2) - ButtonMenu.h / 2 - 30;
 

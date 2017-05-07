@@ -10,7 +10,7 @@ namespace Platform_Jumper
     {
         protected Sprite sprite;
         protected bool[] movement = new bool[4];
-        protected float gravity = 20;
+        protected float gravity = 20f;
         public bool jump {  get;  set; }
         protected float force;
         protected float speed = 1f;
@@ -34,10 +34,11 @@ namespace Platform_Jumper
                     hasHitTop = true;
                 }
             }
-            if (checkCollisionBot(ls) || Y > (ls.Height * 15))
+            if (checkCollisionBot(ls) || Y > (ls.Height-2) * 16)
             {
                 jump = false;
                 hasHitTop = false;
+                if(Y < (ls.Height - 2) * 16)
                 insideWallBot(ls);
                 falling = false;
             }
