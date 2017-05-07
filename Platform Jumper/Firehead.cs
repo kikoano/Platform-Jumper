@@ -13,7 +13,7 @@ namespace Platform_Jumper
         public Firehead(int x, int y) : base(x, y)
         {
             sprite = Sprite.Firehead;
-            speed = 1f;
+            speed = 2f;
             moveDir = rnd.Next(0, 2);
         }
         public override void Update(LevelState ls)

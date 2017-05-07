@@ -28,7 +28,7 @@ namespace Platform_Jumper
                 Pixels[i] = 0;
             }
             ScreenMap = new Bitmap(width, height);
-            Sprite.Init();
+            
         }
         public void RenderX(int xp, int yp, int lenght, bool isfixed)
         {

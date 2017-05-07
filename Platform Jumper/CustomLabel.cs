@@ -13,8 +13,8 @@ namespace Platform_Jumper
         public CustomLabel()
         {
             BackColor = Color.Transparent;
-            Font = new Font("Georgia", 34);
-            Width = 150;
+            Font = new Font("Crimson Text", 34);
+            Width = 160;
             Height = 50;
         }
     }

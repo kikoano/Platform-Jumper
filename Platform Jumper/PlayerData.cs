@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Platform_Jumper
 {
-    public class PlayerData
+    public static class PlayerData
     {
-        public int Score { get; set; }
+        public static int Score  = 0;
+        public static int Lifes  = 3;
     }
 }

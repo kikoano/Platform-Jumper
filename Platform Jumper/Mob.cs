@@ -10,12 +10,12 @@ namespace Platform_Jumper
     {
         protected Sprite sprite;
         protected bool[] movement = new bool[4];
-        protected float gravity = 18;
-        protected bool jump;
+        protected float gravity = 20;
+        public bool jump {  get;  set; }
         protected float force;
-        protected float speed = 4f;
+        protected float speed = 1f;
         protected bool hasHitTop = false;
-        protected bool falling = false;
+        public bool falling { get; private set; } = false;
         public Mob(int x, int y) : base(x, y)
         {
 
@@ -111,10 +111,10 @@ namespace Platform_Jumper
         {
             screen.RenderSprite((int)X, (int)Y, sprite, false);
            // turn on if you want to see collision lines
-            screen.RenderX((int)X, (int)Y - 1, 16 * 4, false);
+            /*screen.RenderX((int)X, (int)Y - 1, 16 * 4, false);
             screen.RenderX((int)X, (int)Y + 16, 16 * 4, false);
             screen.RenderY((int)X - 1, (int)Y, 16, false);
-            screen.RenderY((int)X + 16, (int)Y, 16, false);
+            screen.RenderY((int)X + 16, (int)Y, 16, false);*/
         }
     }
 }

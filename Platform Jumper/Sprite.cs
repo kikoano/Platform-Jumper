@@ -26,12 +26,9 @@ namespace Platform_Jumper
         public static Sprite GoblinLeft = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\goblinLeft.png"));
         public static Sprite GoblinRight = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\goblinRight.png"));
         public static Sprite Firehead = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\firehead.png"));
+        public static Sprite Hearth = new Sprite(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Textures\hearth.png"));
 
-        public static void Init()
-        {
-           
-
-        }
+       
         public Sprite(Bitmap bitmap)
         {
             unsafe

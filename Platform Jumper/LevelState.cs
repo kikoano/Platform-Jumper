@@ -12,50 +12,62 @@ namespace Platform_Jumper
         public int Height { get; private set; }
         public int[] Tiles { get; private set; }
         private Sprite background = Sprite.Backgound1;
-        private string path;
+        public string Path { get; private set; }
         public Player Player { get; private set; }
         public Dictionary<int, Entity> Entities { get; set; } = new Dictionary<int, Entity>();
         public List<Entity> ScreenEntities { get; set; } = new List<Entity>();
-        public PlayerData PlayerData { get; set; } = new PlayerData();
         private Hud hud;
-        private int playerOldX=0;
-        private int playerOldY=0;
+        private int playerOldX;
+        private int playerOldY;
         public LevelState(GameStateManager gsm, string path) : base(gsm)
         {
-            this.path = path;
+            Path = path;
 
         }
         public override void Init()
         {
             base.Init();
+            forceFSE();
             gsm.Ingame = true;
-            Tiles = LoadMapToTiles(path);
+            Tiles = LoadMapToTiles(Path);
             hud = new Hud(controls, this);
+        }
+        private void forceFSE()
+        {
+            playerOldX = -10000;
+            playerOldY = -10000;
         }
         private void checkIfPlayerDead()
         {
+            if (PlayerData.Lifes <= 0)
+                gsm.PopState();
 
         }
         private void findScreenEntities()
         {
-            int diff = Form1.HEIGHT;
-            if (Player.X > playerOldX + diff || Player.X < playerOldX - diff || Player.Y > playerOldY + diff || Player.Y < playerOldY - diff)
+            int diff = Form1.HEIGHT * 2;
+            if (playerOldX<-1 || Player.X >= playerOldX + diff || Player.X <= playerOldX - diff || Player.Y >= playerOldY + diff || Player.Y <= playerOldY - diff)
             {
-                Console.WriteLine("update");
-                playerOldX = (int)Player.X;
-                playerOldY = (int)Player.Y;
-                ScreenEntities = new List<Entity>();
-                for (int y = gsm.screen.YOffset- Form1.HEIGHT; y < gsm.screen.YOffset + Form1.HEIGHT+ Form1.HEIGHT; y += 3)
+                if (!Player.falling && !Player.jump)
                 {
-                    for (int x = gsm.screen.XOffset - 16- Form1.WIDTH; x < gsm.screen.XOffset + Form1.WIDTH+ Form1.WIDTH; x += 4)
+                    Console.WriteLine("update");
+                    playerOldX = (int)Player.X;
+                    playerOldY = (int)Player.Y;
+                    ScreenEntities = new List<Entity>();
+                    for (int y = gsm.screen.YOffset - Form1.HEIGHT - Form1.HEIGHT; y < gsm.screen.YOffset + Form1.HEIGHT + Form1.HEIGHT + Form1.HEIGHT; y += 16)
                     {
-                        Entity e;
-                        if (Entities.TryGetValue((x) + (y * Width), out e))
+                        for (int x = gsm.screen.XOffset - 16 - Form1.WIDTH - Form1.WIDTH; x < gsm.screen.XOffset + Form1.WIDTH + Form1.WIDTH + Form1.WIDTH; x +=4)
                         {
-                            ScreenEntities.Add(e);
+                            Entity e;
+                            if (Entities.TryGetValue((x) + (y * Width), out e))
+                            {
+                                ScreenEntities.Add(e);
+                            }
                         }
                     }
                 }
+                if (ScreenEntities.Count <= 0)
+                    forceFSE();
             }
         }
 
@@ -72,11 +84,11 @@ namespace Platform_Jumper
         }
         public override void Update()
         {
-            findScreenEntities();
             updateOffsets();
+            findScreenEntities();
             //updates ONLY WHAT IS ON SCREEN!
             Player.Update(this);
-           for(int i=0;i< ScreenEntities.Count;i++)
+            for (int i = 0; i < ScreenEntities.Count; i++)
             {
                 ScreenEntities[i].Update(this);
                 if (ScreenEntities[i].Removed)
@@ -86,11 +98,17 @@ namespace Platform_Jumper
                 }
             }
             hud.Update();
+            checkIfPlayerDead();
         }
         private void updateOffsets()
         {
             gsm.screen.XOffset = (int)Player.X - Form1.WIDTH / 2;
             gsm.screen.YOffset = (int)(Player.Y - Form1.HEIGHT / 1.5);
+        }
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            hud.CleanUp();
         }
         private void renderTiles()
         {

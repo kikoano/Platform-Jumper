@@ -12,6 +12,7 @@ namespace Platform_Jumper
     {
         public Player(int x, int y) : base(x, y)
         {
+            speed = 5f;
             sprite = Sprite.PlayerRight;
         }
         public override void Update(LevelState ls)
@@ -32,6 +33,23 @@ namespace Platform_Jumper
             if (movement[3])
                 Y += speed;
             collision(ls);
+            fallInPit(ls);
+            forceBackToMap(ls);
+        }
+        private void forceBackToMap(LevelState ls)
+        {
+            if (X < 0)
+                X = 0;
+            else if (X > (ls.Width * 16-16))
+                X = ls.Width * 16-16;
+        }
+        private void fallInPit(LevelState ls)
+        {
+            if(Y > (ls.Height * 15))
+            {
+                PlayerData.Lifes--;
+                ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
+            }
         }
         private void collision(LevelState ls)
         {
@@ -39,11 +57,12 @@ namespace Platform_Jumper
             {
                 if (collisionWith(ls, e))
                 {
-                    if(e is Coin){
-                        ls.PlayerData.Score += 10;
+                    if (e is Coin)
+                    {
+                        PlayerData.Score += 10;
                         e.Removed = true;
                     }
-                    else if(e is Goblin)
+                    else if (e is Goblin)
                     {
                         if (falling)
                         {
@@ -52,11 +71,17 @@ namespace Platform_Jumper
                             jump = true;
 
                         }
-                        //else
-                           // ls.gsm.PopState();
+                        else
+                        {
+                            PlayerData.Lifes--;
+                            ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
+                        }
                     }
-                    else if(e is Firehead)
-                        ls.gsm.PopState();
+                    else if (e is Firehead)
+                    {
+                        PlayerData.Lifes--;
+                        ls.gsm.SwitchState(new LevelState(ls.gsm, ls.Path));
+                    }
                 }
             }
         }

@@ -41,7 +41,7 @@ namespace Platform_Jumper
         {
             if (states.Count > 0)
                 states.Peek().Cleanup();
-            PopState();
+            states.Pop();
             states.Push(gs);
             states.Peek().Init();
         }

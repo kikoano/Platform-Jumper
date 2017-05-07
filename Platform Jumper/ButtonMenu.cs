@@ -18,7 +18,7 @@ namespace Platform_Jumper
             Width = w;
             Height = h;
             BackColor = System.Drawing.Color.Transparent;
-            Font = new Font("Georgia", 24);
+            Font = new Font("Crimson Text", 24);
         }
     }
 }
