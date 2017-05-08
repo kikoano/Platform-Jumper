@@ -22,7 +22,7 @@ namespace Platform_Jumper
         {
             if(e is Goblin)
             {
-                if((Y + 8) > e.Y && (Y - 8) < e.Y && (X + 12) > e.X && (X - 12) < e.X)
+                if((Y + 8) > e.Y && (Y - 8) < e.Y && (X + 10) > e.X && (X - 10) < e.X)
                     return true;
                 return false;
             }

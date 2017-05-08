@@ -6,3 +6,4 @@ F:\Visual Studio Projects\Platform Jumper\Platform Jumper\bin\Release\Platform J
 F:\Visual Studio Projects\Platform Jumper\Platform Jumper\bin\Release\Platform Jumper.pdb
 F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Release\Platform Jumper.exe
 F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Release\Platform Jumper.pdb
+F:\Visual Studio Projects\Platform Jumper\Platform Jumper\obj\Release\Platform Jumper.csprojResolveAssemblyReference.cache
