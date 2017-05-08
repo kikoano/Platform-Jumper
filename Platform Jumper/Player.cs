@@ -10,6 +10,7 @@ namespace Platform_Jumper
 {
     public class Player : Mob
     {
+        private bool Escape = false;
         public Player(int x, int y) : base(x, y)
         {
             speed = 5f;
@@ -36,6 +37,11 @@ namespace Platform_Jumper
             fallInPit(ls);
             collisionTiles(ls);
             forceBackToMap(ls);
+            if (Escape)
+            {
+                PlayerData.NewGame();
+                ls.gsm.PopState();
+            }
         }
         private void forceBackToMap(LevelState ls)
         {
@@ -116,6 +122,11 @@ namespace Platform_Jumper
             {
                 movement[3] = true;
             }*/
+            if(e.KeyCode == Keys.Escape)
+            {
+                Escape = true;
+                
+            }
             if (!jump)
             {
                 if (e.KeyCode == Keys.Space)

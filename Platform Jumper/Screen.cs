@@ -250,6 +250,12 @@ namespace Platform_Jumper
                     return true;
                 return false;
             }
+            public bool isPlayerB()
+            {
+                if (Red == 0 && Green == 100 && Blue == 255)
+                    return true;
+                return false;
+            }
             public bool isPink()
             {
                 if (Red == 255 && Green == 0 && Blue == 255)
@@ -300,9 +306,49 @@ namespace Platform_Jumper
                 }
                 return false;
             }
+            public bool isFireheadBack()
+            {
+                if (Red == 255 && Green == 100 && Blue == 100)
+                {
+                    return true;
+                }
+                return false;
+            }
             public bool isDoor()
             {
                 if (Red == 120 && Green == 0 && Blue == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            public bool isGrass()
+            {
+                if (Red == 60 && Green == 100 && Blue == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            public bool isBars()
+            {
+                if (Red == 190 && Green == 255 && Blue == 255)
+                {
+                    return true;
+                }
+                return false;
+            }
+            public bool isBox()
+            {
+                if (Red == 200 && Green == 50 && Blue == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            public bool isDirt()
+            {
+                if (Red == 100 && Green == 50 && Blue == 0)
                 {
                     return true;
                 }

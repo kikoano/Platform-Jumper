@@ -11,7 +11,7 @@ namespace Platform_Jumper
         public int Width { get; private set; }
         public int Height { get; private set; }
         public int[] Tiles { get; private set; }
-        private Sprite background = Sprite.Backgound1;
+        private Sprite background;
         public string Path { get; private set; }
         public Player Player { get; private set; }
         public Dictionary<int, Entity> Entities { get; set; } = new Dictionary<int, Entity>();
@@ -19,10 +19,18 @@ namespace Platform_Jumper
         private Hud hud;
         private int playerOldX;
         private int playerOldY;
+        private bool forceUp = false;
         public LevelState(GameStateManager gsm, string path) : base(gsm)
         {
             Path = path;
-
+            if (PlayerData.CurrentLevel == 1)
+                background = Sprite.Backgound1;
+            else if (PlayerData.CurrentLevel == 2)
+                background = Sprite.Backgound2;
+            else if (PlayerData.CurrentLevel == 3)
+                background = Sprite.Backgound3;
+            else
+                background = Sprite.Backgound1;
         }
         public override void Init()
         {
@@ -51,11 +59,11 @@ namespace Platform_Jumper
             int diff = Form1.HEIGHT * 2;
             if (playerOldX<-1 || Player.X >= playerOldX + diff || Player.X <= playerOldX - diff || Player.Y >= playerOldY + diff || Player.Y <= playerOldY - diff)
             {
-                if (!Player.falling && !Player.jump)
+                if ((!Player.falling && !Player.jump)|| forceUp)
                 {
-                    Console.WriteLine("update");
-                    playerOldX = (int)Player.X;
-                    playerOldY = (int)Player.Y;
+                    playerOldX = (int)(Player.X+ Player.X%16);
+                    playerOldY = (int)(Player.Y+ Player.Y%16);
+                    Console.WriteLine("update "+ playerOldX+" "+ playerOldY);
                     ScreenEntities = new List<Entity>();
                     for (int y = gsm.screen.YOffset - Form1.HEIGHT - Form1.HEIGHT; y < gsm.screen.YOffset + Form1.HEIGHT + Form1.HEIGHT + Form1.HEIGHT; y += 16)
                     {
@@ -68,9 +76,13 @@ namespace Platform_Jumper
                             }
                         }
                     }
+                    forceUp = false;
                 }
                 if (ScreenEntities.Count <= 0)
+                {
                     forceFSE();
+                    forceUp = true;
+                }
             }
         }
 
@@ -119,12 +131,20 @@ namespace Platform_Jumper
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    if (Tiles[x + y * Width] == 2)
+                    if (Tiles[x + y * Width] == 6)
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1, false);
-                    else if (Tiles[x + y * Width] == 3)
+                    else if (Tiles[x + y * Width] == 1)
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Wall1Back, false);
                     else if (Tiles[x + y * Width] == 4)
                         gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Door, false);
+                    else if (Tiles[x + y * Width] == 7)
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Grass, false);
+                    else if (Tiles[x + y * Width] == 2)
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Bars, false);
+                    else if (Tiles[x + y * Width] == 8)
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Box, false);
+                    else if (Tiles[x + y * Width] == 9)
+                        gsm.screen.RenderSprite(x * 16, y * 16, Sprite.Dirt, false);
                 }
             }
         }
@@ -156,14 +176,11 @@ namespace Platform_Jumper
                         colors.Red = currentLine[x + 2];
                         colors.Alpha = currentLine[x + 3];
                         int position = (int)((x * 4) + (y * 16 * Width));
-                        if (colors.isGreen())
-                        {
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
-                        }
-                        else if (colors.isWall())
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 2;
+                       
+                       if (colors.isWall())
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 6;
                         else if (colors.isWallBack())
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 3;
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
                         else if (colors.isPlayer())
                         {
                             Player = new Player(x * 4, y * 16);
@@ -171,7 +188,15 @@ namespace Platform_Jumper
                             //add Keyboard handles
                             gsm.Form.KeyDown += Player.KeyDown;
                             gsm.Form.KeyUp += Player.KeyUp;
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 0;
+                        }
+                        else if (colors.isPlayerB())
+                        {
+                            Player = new Player(x * 4, y * 16);
+
+                            //add Keyboard handles
+                            gsm.Form.KeyDown += Player.KeyDown;
+                            gsm.Form.KeyUp += Player.KeyUp;
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
                         }
                         else if (colors.isCoin())
                         {
@@ -180,7 +205,7 @@ namespace Platform_Jumper
                         else if (colors.isCoinBack())
                         {
                             Entities.Add(position, new Coin(x * 4, y * 16));
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 3;
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
                         }
                         else if (colors.isGoblin())
                         {
@@ -189,15 +214,36 @@ namespace Platform_Jumper
                         else if (colors.isGoblinBack())
                         {
                             Entities.Add(position, new Goblin(x * 4, y * 16));
-                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 3;
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
                         }
                         else if (colors.isFirehead())
                         {
                             Entities.Add(position, new Firehead(x * 4, y * 16));
                         }
+                        else if (colors.isFireheadBack())
+                        {
+                            Entities.Add(position, new Firehead(x * 4, y * 16));
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 1;
+                        }
                         else if (colors.isDoor())
                         {
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 4;
+                        }
+                        else if (colors.isGrass())
+                        {
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 7;
+                        }
+                        else if (colors.isBars())
+                        {
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 2;
+                        }
+                        else if (colors.isBox())
+                        {
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 8;
+                        }
+                        else if (colors.isDirt())
+                        {
+                            tiles[(x / bytesPerPixel) + y * mapData.Width] = 9;
                         }
                         else
                             tiles[(x / bytesPerPixel) + y * mapData.Width] = 0;

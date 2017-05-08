@@ -57,7 +57,7 @@ namespace Platform_Jumper
         {
             int xp = (int)(X + 7) / 16;
             int yp = (int)(Y) / 16;
-            if (ls.Tiles[(int)xp + (int)(yp + 1) * ls.Width] ==2)
+            if (ls.Tiles[(int)xp + (int)(yp + 1) * ls.Width] > 5)
             {
                 //insideWallBot(ls);
                 return true;
@@ -68,7 +68,7 @@ namespace Platform_Jumper
         {
             int xp = (int)(X+7) / 16;
             int yp = (int)(Y + 15) / 16;
-            if (ls.Tiles[(int)xp + (int)(yp - 1) * ls.Width] == 2)
+            if (ls.Tiles[(int)xp + (int)(yp - 1) * ls.Width] > 5)
             {
                 return true;
             }
@@ -91,7 +91,7 @@ namespace Platform_Jumper
         {
             int xp = (int)(X - 3) / 16;
             int yp = (int)Y / 16;
-            if (ls.Tiles[(int)xp + 1 + (int)yp * ls.Width] == 2)
+            if (ls.Tiles[(int)xp + 1 + (int)yp * ls.Width] > 5)
             {
                 return true;
             }
@@ -101,7 +101,7 @@ namespace Platform_Jumper
         {
             int xp = (int)(X + 16) / 16;
             int yp = (int)Y / 16;
-            if (ls.Tiles[(int)xp - 1 + (int)yp * ls.Width] == 2)
+            if (ls.Tiles[(int)xp - 1 + (int)yp * ls.Width] > 5)
             {
                 return true;
             }

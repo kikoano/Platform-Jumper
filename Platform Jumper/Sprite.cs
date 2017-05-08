@@ -21,6 +21,8 @@ namespace Platform_Jumper
         public static Sprite PlayerRight = new Sprite(@"\Textures\playerRight.png");
         public static Sprite PlayerLeft = new Sprite(@"\Textures\playerLeft.png");
         public static Sprite Backgound1 = new Sprite(@"\Textures\bg1.png");
+        public static Sprite Backgound2 = new Sprite(@"\Textures\bg2.png");
+        public static Sprite Backgound3 = new Sprite(@"\Textures\bg3.png");
         public static Sprite Coin= new Sprite(@"\Textures\Coin.png");
         public static Sprite Score = new Sprite(@"\Textures\score.png");
         public static Sprite GoblinLeft = new Sprite(@"\Textures\goblinLeft.png");
@@ -31,6 +33,10 @@ namespace Platform_Jumper
         public static Sprite Clock = new Sprite(@"\Textures\clock.png");
         public static Sprite BgScore = new Sprite(@"\Textures\bgScore.png");
         public static Sprite Title = new Sprite(@"\Textures\title.png");
+        public static Sprite Grass = new Sprite(@"\Textures\grass.png");
+        public static Sprite Bars = new Sprite(@"\Textures\bars.png");
+        public static Sprite Box = new Sprite(@"\Textures\box.png");
+        public static Sprite Dirt = new Sprite(@"\Textures\dirt.png");
 
 
         public Sprite(string path)
