@@ -13,24 +13,24 @@ namespace Platform_Jumper
         public Firehead(int x, int y) : base(x, y)
         {
             sprite = Sprite.Firehead;
-            speed = 2f;
+            speed = 40f;
             moveDir = rnd.Next(0, 2);
         }
-        public override void Update(LevelState ls)
+        public override void Update(LevelState ls,float delta)
         {
-             verticalMove(ls);
+             verticalMove(ls, delta);
         }
-        private void verticalMove(LevelState ls)
+        private void verticalMove(LevelState ls,float delta)
         {
             if (moveDir == 0)
             {
-                Y += speed;
+                Y += speed* delta;
             }
             if (checkCollisionBot(ls))
                 moveDir = 1;
             if (moveDir == 1)
             {
-                Y -= speed;
+                Y -= speed* delta;
             }
             if (checkCollisionTop(ls))
                 moveDir = 0;

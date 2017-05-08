@@ -97,15 +97,15 @@ namespace Platform_Jumper
             }
             hud.Render(gsm.screen);
         }
-        public override void Update()
+        public override void Update(float delta)
         {
             updateOffsets();
             findScreenEntities();
             //updates ONLY WHAT IS ON SCREEN!
-            Player.Update(this);
+            Player.Update(this, delta);
             for (int i = 0; i < ScreenEntities.Count; i++)
             {
-                ScreenEntities[i].Update(this);
+                ScreenEntities[i].Update(this, delta);
                 if (ScreenEntities[i].Removed)
                 {
                     Entities.Remove((int)(ScreenEntities[i].X + ScreenEntities[i].Y * Width));

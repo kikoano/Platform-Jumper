@@ -28,7 +28,7 @@ namespace Platform_Jumper
                 c.Dispose();
             }
         }
-        public abstract void Update();
+        public abstract void Update(float delta);
         public abstract void Render();
     }
 }

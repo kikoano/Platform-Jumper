@@ -10,7 +10,7 @@ namespace Platform_Jumper
     {
         protected Sprite sprite;
         protected bool[] movement = new bool[4];
-        protected float gravity = 20f;
+        protected float gravity = 100f;
         public bool jump {  get;  set; }
         protected float force;
         protected float speed = 1f;
@@ -20,14 +20,14 @@ namespace Platform_Jumper
         {
 
         }
-        public override void Update(LevelState ls)
+        public override void Update(LevelState ls,float delta)
         {
             if (jump)
             {
                 //jumping
-                force--;
+                force -= 1 * delta;
                 if (!checkCollisionTop(ls))
-                    Y -= force;
+                    Y -= force* delta;
                 else
                 {
                     force = 0;
@@ -44,12 +44,12 @@ namespace Platform_Jumper
             }
             else if (!hasHitTop)
             {
-                Y += speed * 2;
+                Y += speed * 2 * delta;
                 falling = true;
             }
             else
             {
-                Y += 2;
+                Y += 2* delta;
                 falling = true;
             }
         }

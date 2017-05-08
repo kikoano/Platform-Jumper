@@ -79,7 +79,7 @@ namespace Platform_Jumper
 
         }
 
-        public override void Update()
+        public override void Update(float delta)
         {
 
         }

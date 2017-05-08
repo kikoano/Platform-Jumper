@@ -19,7 +19,7 @@ namespace Platform_Jumper
             screen.RenderSprite((int)X, (int)Y, sprite,false);
         }
 
-        public override void Update(LevelState ls)
+        public override void Update(LevelState ls,float delta)
         {
             
         }

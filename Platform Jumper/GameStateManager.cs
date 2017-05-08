@@ -54,15 +54,15 @@ namespace Platform_Jumper
             states.Peek().Init();
 
         }
-        public void Update()
+        public void Update(float delta)
         {
             if (!Ingame)
             {
-                backgorundX+= speed * Form1.Delta();
+                backgorundX+= speed * delta;
                 if (backgorundX >= Form1.WIDTH)
                     backgorundX = 0;
             }
-            states.Peek().Update();
+            states.Peek().Update(delta);
         }
         public void Render()
         {

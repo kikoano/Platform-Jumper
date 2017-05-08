@@ -106,7 +106,7 @@ namespace Platform_Jumper
             gsm.screen.RenderSprite(127, 117, Sprite.Clock, true);
         }
 
-        public override void Update()
+        public override void Update(float delta)
         {
            
         }

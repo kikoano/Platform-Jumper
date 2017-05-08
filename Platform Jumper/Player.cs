@@ -16,26 +16,26 @@ namespace Platform_Jumper
             speed = 110f;
             sprite = Sprite.PlayerRight;
         }
-        public override void Update(LevelState ls)
+        public override void Update(LevelState ls,float delta)
         {
-            base.Update(ls);
+            base.Update(ls, delta);
             if (movement[0] && !checkCollisionLeft(ls))
             {
                 sprite = Sprite.PlayerLeft;
-                X -= speed*Form1.Delta();
+                X -= speed* delta;
             }
             if (movement[1])
-                Y -= speed * Form1.Delta();
+                Y -= speed * delta;
             if (movement[2] && !checkCollisionRight(ls))
             {
                 sprite = Sprite.PlayerRight;
-                X += speed * Form1.Delta();
+                X += speed * delta;
             }
             if (movement[3])
-                Y += speed * Form1.Delta();
+                Y += speed * delta;
             collision(ls);
             fallInPit(ls);
-            collisionTiles(ls);
+            //collisionTiles(ls);
             forceBackToMap(ls);
             if (Escape)
             {

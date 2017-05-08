@@ -46,7 +46,7 @@ namespace Platform_Jumper
         {
             Sound.Mute = !Sound.Mute;
         }
-        public override void Update()
+        public override void Update(float delta)
         {
             string mute = "on";
             if (Sound.Mute)

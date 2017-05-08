@@ -13,8 +13,8 @@ namespace Platform_Jumper
     public partial class Form1 : Form
     {
         private Timer timer = new Timer();
-        private static DateTime currentTime;
-        private static DateTime lastTime;
+        private DateTime currentTime;
+        private DateTime lastTime;
         private GameStateManager gsm;
         public static int WIDTH = 320;
         public static int HEIGHT = 240;
@@ -38,13 +38,9 @@ namespace Platform_Jumper
         private void timerTick(object sender, EventArgs e)
         {
             currentTime = DateTime.Now;
-            gsm.Update();
+            gsm.Update((float)(currentTime - lastTime).TotalSeconds);
             gsm.Render();
             lastTime = currentTime;
-        }
-        public static float Delta()
-        {
-            return (float)(currentTime - lastTime).TotalSeconds;
         }
     }
 }

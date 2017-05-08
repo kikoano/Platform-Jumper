@@ -36,7 +36,7 @@ namespace Platform_Jumper
             gsm.screen.RenderSprite(-2,-5,Sprite.HowTo,false);
         }
 
-        public override void Update()
+        public override void Update(float delta)
         {
            
         }

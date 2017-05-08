@@ -11,7 +11,7 @@ namespace Platform_Jumper
         public float X { get; set; }
         public float Y { get; set; }
         public bool Removed = false;
-        public abstract void Update(LevelState ls);
+        public abstract void Update(LevelState ls,float delta);
         public abstract void Render(Screen screen);
         public Entity(int x,int y)
         {
