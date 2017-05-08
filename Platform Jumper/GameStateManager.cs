@@ -14,7 +14,8 @@ namespace Platform_Jumper
         private Stack<GameState> states;
         public Screen screen { get; private set; }
         public bool Ingame { get; set; } = false;
-        private int backgorundX = 0;
+        private float backgorundX = 0;
+        private float speed = 20f;
 
         public GameStateManager(Form form)
         {
@@ -57,7 +58,7 @@ namespace Platform_Jumper
         {
             if (!Ingame)
             {
-                backgorundX++;
+                backgorundX+= speed * Form1.Delta();
                 if (backgorundX >= Form1.WIDTH)
                     backgorundX = 0;
             }
@@ -67,8 +68,8 @@ namespace Platform_Jumper
         {
             if (!Ingame)
             {         
-                screen.RenderSprite(backgorundX, 0, Sprite.Background,true);
-                screen.RenderSprite(backgorundX - Form1.WIDTH, 0, Sprite.Background,true);
+                screen.RenderSprite((int)backgorundX, 0, Sprite.Background,true);
+                screen.RenderSprite((int)backgorundX - Form1.WIDTH, 0, Sprite.Background,true);
                 screen.RenderSprite(25, 0, Sprite.Title, true);
             }
             states.Peek().Render();
