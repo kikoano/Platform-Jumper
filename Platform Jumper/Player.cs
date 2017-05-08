@@ -13,7 +13,7 @@ namespace Platform_Jumper
         private bool Escape = false;
         public Player(int x, int y) : base(x, y)
         {
-            speed = 5f;
+            speed = 110f;
             sprite = Sprite.PlayerRight;
         }
         public override void Update(LevelState ls)
@@ -22,17 +22,17 @@ namespace Platform_Jumper
             if (movement[0] && !checkCollisionLeft(ls))
             {
                 sprite = Sprite.PlayerLeft;
-                X -= speed;
+                X -= speed*Form1.Delta();
             }
             if (movement[1])
-                Y -= speed;
+                Y -= speed * Form1.Delta();
             if (movement[2] && !checkCollisionRight(ls))
             {
                 sprite = Sprite.PlayerRight;
-                X += speed;
+                X += speed * Form1.Delta();
             }
             if (movement[3])
-                Y += speed;
+                Y += speed * Form1.Delta();
             collision(ls);
             fallInPit(ls);
             collisionTiles(ls);
