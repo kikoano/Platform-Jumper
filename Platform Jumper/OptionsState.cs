@@ -28,24 +28,32 @@ namespace Platform_Jumper
                 controls.Add(new ButtonMenu() { Location = new System.Drawing.Point(witdhCenterForm, heightCenterForm + (i * 80)) });
                 gsm.Form.Controls.Add(controls[i]);
             }
-            controls[0].Text = "Change";
+            controls[0].Click += muteSound;
             controls[1].Text = "Back";
             controls[1].Click += backClick;
         }
         public override void Cleanup()
         {
-            controls[1].Click -= backClick;
             base.Cleanup();
+            controls[1].Click -= backClick;
+            controls[0].Click -= muteSound;
         }
 
         public override void Render()
         {
-            
         }
-
+        private void muteSound(object sender, System.EventArgs e)
+        {
+            Sound.Mute = !Sound.Mute;
+        }
         public override void Update()
         {
-            
+            string mute = "on";
+            if (Sound.Mute)
+            {
+                mute = "off";
+            }
+            controls[0].Text = "Sound " + mute;
         }
     }
 }

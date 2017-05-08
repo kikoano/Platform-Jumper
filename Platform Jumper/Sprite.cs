@@ -30,6 +30,7 @@ namespace Platform_Jumper
         public static Sprite Door = new Sprite(@"\Textures\door.png");
         public static Sprite Clock = new Sprite(@"\Textures\clock.png");
         public static Sprite BgScore = new Sprite(@"\Textures\bgScore.png");
+        public static Sprite Title = new Sprite(@"\Textures\title.png");
 
 
         public Sprite(string path)

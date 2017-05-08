@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,22 +54,43 @@ namespace Platform_Jumper
             txtName.Location = new System.Drawing.Point(362, 520);
             txtName.Width = 245;
             txtName.Font  = new Font("Crimson Text", 26);
+            txtName.Text = "Player";
             txtName.Height = 200;
+            controls[4].Visible = false;
+            txtName.Visible = false;
 
-            if (PlayerData.CurrentLevel != PlayerData.Levels || PlayerData.Lifes > 0)
+            if (PlayerData.CurrentLevel == PlayerData.Levels || PlayerData.Lifes <= 0)
             {
-               // controls[4].Visible = false;
+                controls[4].Visible = true;
+                txtName.Visible = true;
             }
         }
         private void optionsClick(object sender, System.EventArgs e)
         {
             if (PlayerData.CurrentLevel == PlayerData.Levels || PlayerData.Lifes<=0)
             {
+                CreateDataScore();
                 gsm.PopState();
                 PlayerData.NewGame();
             }
             else
                 gsm.SwitchState(new LevelState(gsm,"level"+ ++PlayerData.CurrentLevel+".png"));
+        }
+        private void CreateDataScore()
+        {
+            if(txtName.Text.Trim()=="")
+            {
+                txtName.Text = "Player";
+            }
+            DataScore ds = new DataScore(txtName.Text,PlayerData.Score,PlayerData.AllTime);
+            string dir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+ @"\Data";
+            string serializationFile = Path.Combine(dir, "scores.bin");
+            using (Stream stream = File.Open(serializationFile, FileMode.Append))
+            {
+                var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+                bformatter.Serialize(stream, ds);
+            }
         }
         public override void Cleanup()
         {

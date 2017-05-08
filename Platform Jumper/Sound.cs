@@ -12,6 +12,7 @@ namespace Platform_Jumper
     {
         private string path;
         private SoundPlayer soundPlayer = new SoundPlayer();
+        public static bool Mute = false;
 
         public static Sound Collect = new Sound(@"\Sounds\collect.wav");
         public static Sound Jump = new Sound(@"\Sounds\jump.wav");
@@ -27,11 +28,8 @@ namespace Platform_Jumper
         }
         public void Play()
         {
-            soundPlayer.Play();
-        }
-        public void PlayLoop()
-        {
-            soundPlayer.PlayLooping();
+            if (!Mute)
+                soundPlayer.Play();
         }
     }
 }

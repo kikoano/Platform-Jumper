@@ -26,6 +26,7 @@ namespace Platform_Jumper
 
             DoubleBuffered = true;
             KeyPreview = true;
+            MaximizeBox = false;
             gsm = new GameStateManager(this);
             gsm.PushState(new MenuState(gsm));
             timer.Interval = 1000 / 60;

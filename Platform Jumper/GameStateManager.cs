@@ -69,6 +69,7 @@ namespace Platform_Jumper
             {         
                 screen.RenderSprite(backgorundX, 0, Sprite.Background,true);
                 screen.RenderSprite(backgorundX - Form1.WIDTH, 0, Sprite.Background,true);
+                screen.RenderSprite(25, 0, Sprite.Title, true);
             }
             states.Peek().Render();
             Form.Invalidate();

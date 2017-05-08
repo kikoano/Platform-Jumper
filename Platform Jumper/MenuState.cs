@@ -18,6 +18,10 @@ namespace Platform_Jumper
         {
             gsm.PushState(new OptionsState(gsm));
         }
+        private void highScoresClick(object sender, System.EventArgs e)
+        {
+            gsm.PushState(new HighScoreState(gsm));
+        }
         private void exitClick(object sender, System.EventArgs e)
         {
             gsm.Form.Close();
@@ -42,7 +46,9 @@ namespace Platform_Jumper
             }
             controls[0].Text = "Play";
             controls[0].Click += playClick;
+
             controls[1].Text = "High Scores";
+            controls[1].Click += highScoresClick;
 
             controls[2].Text = "Options";
             controls[2].Click += optionsClick;
@@ -54,6 +60,7 @@ namespace Platform_Jumper
         {
             // removes Handler, Form references and dispose all
             controls[0].Click -= playClick;
+            controls[1].Click -= highScoresClick;
             controls[2].Click -= optionsClick;
             controls[3].Click -= exitClick;
             base.Cleanup();
