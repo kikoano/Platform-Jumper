@@ -50,7 +50,6 @@ namespace Platform_Jumper
 
         private void jumpAndFall(LevelState ls ,float delta)
         {
-            Console.WriteLine(jump);
             if (jump)
             {
                 force -= gravity * delta;
