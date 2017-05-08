@@ -32,7 +32,7 @@ namespace Platform_Jumper
         }
         private void howToPlayClick(object sender, System.EventArgs e)
         {
-            gsm.PushState(new HowTopPlayState(gsm));
+            gsm.PushState(new HowToPlayState(gsm));
         }
         public override void Init()
         {
@@ -68,7 +68,7 @@ namespace Platform_Jumper
             // removes Handler, Form references and dispose all
             controls[0].Click -= playClick;
             controls[1].Click -= highScoresClick;
-            controls[2].Click += howToPlayClick;
+            controls[2].Click -= howToPlayClick;
             controls[3].Click -= optionsClick;
             controls[4].Click -= exitClick;
             base.Cleanup();

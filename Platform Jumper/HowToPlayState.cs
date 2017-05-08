@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Platform_Jumper
 {
-    public class HowTopPlayState : GameState
+    public class HowToPlayState : GameState
     {
         private ButtonMenu back = new ButtonMenu();
-        public HowTopPlayState(GameStateManager gsm) : base(gsm)
+        public HowToPlayState(GameStateManager gsm) : base(gsm)
         {
         }
         public override void Init()
@@ -33,7 +33,7 @@ namespace Platform_Jumper
 
         public override void Render()
         {
-            gsm.screen.RenderSprite(-2,-5,Sprite.HowTo,false);
+            gsm.screen.RenderSprite(-2,-5,Sprite.HowTo,true);
         }
 
         public override void Update(float delta)
