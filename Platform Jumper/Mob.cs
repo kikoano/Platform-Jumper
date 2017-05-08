@@ -10,48 +10,17 @@ namespace Platform_Jumper
     {
         protected Sprite sprite;
         protected bool[] movement = new bool[4];
-        protected float gravity = 100f;
         public bool jump {  get;  set; }
         protected float force;
         protected float speed = 1f;
-        protected bool hasHitTop = false;
-        public bool falling { get; private set; } = false;
+        public bool falling { get; protected set; } = false;
         public Mob(int x, int y) : base(x, y)
         {
 
         }
         public override void Update(LevelState ls,float delta)
         {
-            if (jump)
-            {
-                //jumping
-                force -= 1 * delta;
-                if (!checkCollisionTop(ls))
-                    Y -= force* delta;
-                else
-                {
-                    force = 0;
-                    hasHitTop = true;
-                }
-            }
-            if (checkCollisionBot(ls) || Y > (ls.Height-2) * 16)
-            {
-                jump = false;
-                hasHitTop = false;
-                if(Y < (ls.Height - 2) * 16)
-                insideWallBot(ls);
-                falling = false;
-            }
-            else if (!hasHitTop)
-            {
-                Y += speed * 2 * delta;
-                falling = true;
-            }
-            else
-            {
-                Y += 2* delta;
-                falling = true;
-            }
+            
         }
         protected bool checkCollisionBot(LevelState ls)
         {

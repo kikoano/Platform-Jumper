@@ -11,6 +11,9 @@ namespace Platform_Jumper
     public class Player : Mob
     {
         private bool Escape = false;
+        private float gravity = 150f;
+        private float fallSpeed = 160f;
+        private float jumpMax = 75f;
         public Player(int x, int y) : base(x, y)
         {
             speed = 110f;
@@ -33,9 +36,10 @@ namespace Platform_Jumper
             }
             if (movement[3])
                 Y += speed * delta;
+            jumpAndFall(ls,delta);
             collision(ls);
             fallInPit(ls);
-            //collisionTiles(ls);
+            collisionTiles(ls);
             forceBackToMap(ls);
             if (Escape)
             {
@@ -43,6 +47,35 @@ namespace Platform_Jumper
                 ls.gsm.PopState();
             }
         }
+
+        private void jumpAndFall(LevelState ls ,float delta)
+        {
+            Console.WriteLine(jump);
+            if (jump)
+            {
+                force -= gravity * delta;
+                if (force < jumpMax || checkCollisionTop(ls))
+                {
+                    force = 0;
+                    jump = false;
+                }
+                Y -= force * delta;
+
+            }
+            if (checkCollisionBot(ls) || Y > (ls.Height - 2) * 16)
+            {
+                if (Y < (ls.Height - 2) * 16)
+                    insideWallBot(ls);
+                falling = false;
+            }
+            else  if (!jump)
+            {
+                falling = true;
+                Y += fallSpeed * delta;
+            }
+
+        }
+
         private void forceBackToMap(LevelState ls)
         {
             if (X < 0)
@@ -80,7 +113,7 @@ namespace Platform_Jumper
                     }
                     else if (e is Goblin)
                     {
-                        if (falling)
+                        if (falling || jump)
                         {
                             e.Removed = true;
                             force = gravity;
@@ -127,7 +160,7 @@ namespace Platform_Jumper
                 Escape = true;
                 
             }
-            if (!jump)
+            if (!jump && !falling)
             {
                 if (e.KeyCode == Keys.Space)
                 {

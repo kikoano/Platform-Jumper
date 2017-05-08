@@ -15,7 +15,7 @@ namespace Platform_Jumper
         {
 
             sprite = Sprite.GoblinLeft;
-            speed = 30f;
+            speed = 32f;
             moveDir = rnd.Next(0, 2);
         }
         public override void Update(LevelState ls,float delta)
