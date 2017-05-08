@@ -25,10 +25,14 @@ namespace Platform_Jumper
             timer.Tick += tick;
             timer.Start();
 
-            score.Location = new System.Drawing.Point(60, 7);
+            score.Location = new System.Drawing.Point(55, 7);
+            score.BackColor = Color.LightGray;
+            score.Width = 153;
             life.Location = new System.Drawing.Point(270, 7);
-            life.Width = 100;
+            life.BackColor = Color.LightGray;
+            life.Width = 40;
             time.Location = new System.Drawing.Point(370, 7);
+            time.BackColor= Color.LightGray;
 
             controls.Add(score);
             controls.Add(life);
@@ -44,7 +48,7 @@ namespace Platform_Jumper
         }
         public void Render(Screen screen)
         {
-            screen.RenderSprite(0, 0, Sprite.Score,true);
+            screen.RenderSprite(-2, 0, Sprite.Score,true);
             screen.RenderSprite(70, 3, Sprite.Hearth, true);
             screen.RenderSprite(105, 2, Sprite.Clock, true);
         }

@@ -17,7 +17,8 @@ namespace Platform_Jumper
         {
             Width = w;
             Height = h;
-            BackColor = System.Drawing.Color.Transparent;
+            FlatStyle = FlatStyle.Flat;
+            FlatAppearance.BorderSize = 0;
             Font = new Font("Crimson Text", 24);
         }
         protected override void OnClick(EventArgs e)
