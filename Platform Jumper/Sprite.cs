@@ -37,6 +37,7 @@ namespace Platform_Jumper
         public static Sprite Bars = new Sprite(@"\Textures\bars.png");
         public static Sprite Box = new Sprite(@"\Textures\box.png");
         public static Sprite Dirt = new Sprite(@"\Textures\dirt.png");
+        public static Sprite HowTo = new Sprite(@"\Textures\howTo.png");
 
 
         public Sprite(string path)

@@ -30,6 +30,10 @@ namespace Platform_Jumper
         {
             gsm.PushState(new LevelState(gsm, "level"+PlayerData.CurrentLevel+".png"));
         }
+        private void howToPlayClick(object sender, System.EventArgs e)
+        {
+            gsm.PushState(new HowTopPlayState(gsm));
+        }
         public override void Init()
         {
             base.Init();
@@ -37,9 +41,9 @@ namespace Platform_Jumper
             gsm.Ingame = false;
 
             int witdhCenterForm = (gsm.Form.Width / 2) - ButtonMenu.w / 2;
-            int heightCenterForm = (gsm.Form.Height / 2) - ButtonMenu.h / 2 - 30;
+            int heightCenterForm = (gsm.Form.Height / 2) - ButtonMenu.h / 2 - 60;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 controls.Add(new ButtonMenu() { Location = new System.Drawing.Point(witdhCenterForm, heightCenterForm + (i * 80)) });
                 gsm.Form.Controls.Add(controls[i]);
@@ -50,19 +54,23 @@ namespace Platform_Jumper
             controls[1].Text = "High Scores";
             controls[1].Click += highScoresClick;
 
-            controls[2].Text = "Options";
-            controls[2].Click += optionsClick;
+            controls[2].Text = "How to Play";
+            controls[2].Click += howToPlayClick;
 
-            controls[3].Text = "Exit";
-            controls[3].Click += exitClick;
+            controls[3].Text = "Options";
+            controls[3].Click += optionsClick;
+
+            controls[4].Text = "Exit";
+            controls[4].Click += exitClick;
         }
         public override void Cleanup()
         {
             // removes Handler, Form references and dispose all
             controls[0].Click -= playClick;
             controls[1].Click -= highScoresClick;
-            controls[2].Click -= optionsClick;
-            controls[3].Click -= exitClick;
+            controls[2].Click += howToPlayClick;
+            controls[3].Click -= optionsClick;
+            controls[4].Click -= exitClick;
             base.Cleanup();
         }
 

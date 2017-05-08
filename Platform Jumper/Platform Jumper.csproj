@@ -82,6 +82,7 @@
     <Compile Include="GameStateManager.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="HighScoreState.cs" />
+    <Compile Include="HowTopPlayState.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="LevelCompleteState.cs" />
