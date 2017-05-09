@@ -49,6 +49,18 @@ namespace Platform_Jumper
             int modul = (int)Y % 16;
             Y -= modul;
         }
+        protected void insideWallLeft(LevelState ls)
+        {
+            int xp = (int)X / 16;
+            int modul = (int)X % 16;
+            X += modul;
+        }
+        protected void insideWallRight(LevelState ls)
+        {
+            int xp = (int)X / 16;
+            int modul = (int)X % 16;
+            X -= modul;
+        }
         protected void insideWallTop(LevelState ls)
         {
             int xp = (int)X / 16;
