@@ -27,9 +27,7 @@ namespace Platform_Jumper
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             screen.PixelsToBitmap();
-            Bitmap resize = new Bitmap(screen.ScreenMap, Form1.WIDTH * Form1.SCALE, Form1.HEIGHT * Form1.SCALE);
-            e.Graphics.DrawImage(resize, 0, 0);
-            resize.Dispose();
+            e.Graphics.DrawImage(screen.ScreenMap, 0, 0, Form1.WIDTH * Form1.SCALE, Form1.HEIGHT * Form1.SCALE);
         }
         public void PushState(GameState gs)
         {
