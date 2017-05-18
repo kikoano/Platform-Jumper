@@ -12,8 +12,8 @@ namespace Platform_Jumper
     {
         private bool Escape = false;
         private float gravity = 150f;
-        private float fallSpeed = 160f;
-        private float jumpMax = 75f;
+        private float fallSpeed = 180f;
+        private float jumpMax = 50f;
         public Player(int x, int y) : base(x, y)
         {
             speed = 110f;
