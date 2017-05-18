@@ -63,7 +63,7 @@ namespace Platform_Jumper
                 {
                     playerOldX = (int)(Player.X+ Player.X%16);
                     playerOldY = (int)(Player.Y+ Player.Y%16);
-                    Console.WriteLine("update "+ playerOldX+" "+ playerOldY);
+                   // Console.WriteLine("update "+ playerOldX+" "+ playerOldY);
                     ScreenEntities = new List<Entity>();
                     for (int y = gsm.screen.YOffset - Form1.HEIGHT - Form1.HEIGHT; y < gsm.screen.YOffset + Form1.HEIGHT + Form1.HEIGHT + Form1.HEIGHT; y += 16)
                     {
@@ -99,10 +99,10 @@ namespace Platform_Jumper
         }
         public override void Update(float delta)
         {
-            updateOffsets();
-            findScreenEntities();
-            //updates ONLY WHAT IS ON SCREEN!
             Player.Update(this, delta);
+            updateOffsets();
+            //updates ONLY WHAT IS ON SCREEN!
+            findScreenEntities();
             for (int i = 0; i < ScreenEntities.Count; i++)
             {
                 ScreenEntities[i].Update(this, delta);
