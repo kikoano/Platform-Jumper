@@ -162,7 +162,10 @@ HighScoreState со методот```loadDataScore()```ги вчитува DataS
 листа и ги сортира по големина на освоени поени. Има 3 CustomListBox(кои се екстензија од ListBox) во кои ги става
 името, поените и времето соодветно.
 ![](https://github.com/kikoano/Platform-Jumper/blob/master/screenshots/highScores.png)
-
+## 9. Слики од играта
+![](https://github.com/kikoano/Platform-Jumper/blob/master/screenshots/gameplay1.png)
+![](https://github.com/kikoano/Platform-Jumper/blob/master/screenshots/gameplay2.png)
+![](https://github.com/kikoano/Platform-Jumper/blob/master/screenshots/gameplay3.png)
 
 
 
